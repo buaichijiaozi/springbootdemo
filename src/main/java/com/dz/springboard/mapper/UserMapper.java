@@ -20,8 +20,12 @@ public interface UserMapper {
      */
     User findByUsername(String username);
 
-    
-
+    /**
+     * 根据用户id来查询用户的数据
+     * @param uid 用户id
+     * @return 如果找到对应的用户则返回这个用户的数据，如果没有找到则返回null值
+     */
+    User findByUid(Integer uid);
 
     Integer del(int uid);
 

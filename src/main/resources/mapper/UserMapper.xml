@@ -47,6 +47,12 @@
         SELECT * FROM t_user WHERE username = #{username}
     </select>
 
+    <!-- 根据用户名查询用户数据：User findByUsername(String username) -->
+    <select id="findByUid" resultMap="UserEntityMap">
+        SELECT * FROM t_user WHERE uid = #{uid}
+    </select>
+
+
 
     <delete id="del">
         DELETE FROM t_user where uid=#{uid}

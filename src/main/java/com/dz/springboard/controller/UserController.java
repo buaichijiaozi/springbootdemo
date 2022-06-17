@@ -32,7 +32,4 @@ public class UserController extends BaseController{
 
         return new JsonResult<>(OK,dara);
     }
-
-
-
 }

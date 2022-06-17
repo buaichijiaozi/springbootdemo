@@ -61,6 +61,19 @@ public class UserServiceImpl implements IUserService {
         if (!encoder.matches(password, oldPassword)){
             throw new PasswordNotMatchException("PasswordNotMatch");
         }
+        return getUser(result);
+    }
+
+    @Override
+    public User findByUid(Integer uid) {
+        User result = userMapper.findByUid(uid);
+        if (result == null){
+            throw new UsernameNotFoundException("UserNameNull");
+        }
+        return getUser(result);
+    }
+
+    private User getUser(User result) {
         if (result.getIsDelete() == 1){
             throw new UsernameNotFoundException("UserNameDel");
         }
