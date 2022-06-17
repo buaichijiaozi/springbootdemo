@@ -20,6 +20,8 @@ public interface UserMapper {
      */
     User findByUsername(String username);
 
+    
+
 
     Integer del(int uid);
 
