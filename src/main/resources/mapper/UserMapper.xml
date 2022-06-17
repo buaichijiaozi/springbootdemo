@@ -4,6 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--namespace属性：用于指定当前的映射文件和哪个接口进行映射，需要指定接口的文件路径，需要标注包的完整路径接口-->
 <mapper namespace="com.dz.springboard.mapper.UserMapper">
+
     <!--
         自定义映射规则 resultMap标签来完成映射规则的定义
         id 属性：标签给这个映射负责分一个唯一的id值，对应的就是resultMap="id属性的值"属性的取值
@@ -53,8 +54,8 @@
     </select>
 
 
+    <update id="updatePasswordByUid">
+        UPDATE t_user SET password=#{password}, modified_user=#{modifiedUser}, modified_time=#{modifiedTime} WHERE uid=#{uid}
+    </update>
 
-    <delete id="del">
-        DELETE FROM t_user where uid=#{uid}
-    </delete>
 </mapper>

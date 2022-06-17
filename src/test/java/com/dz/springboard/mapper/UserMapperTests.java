@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 //@SpringBootTest 表示标注当前的类是一个测试类，不会随同项目一块打包
 @SpringBootTest
@@ -30,7 +31,7 @@ public class UserMapperTests {
     @Test
     public void insert(){
         User user = new User();
-        user.setUsername("tim");
+        user.setUsername("tim001");
         user.setPassword("123");
         Integer roes = userMapper.insert(user);
         System.out.println(roes);
@@ -58,5 +59,17 @@ public class UserMapperTests {
             c = DigestUtils.md5DigestAsHex((b + a + b).getBytes());
         }
         System.out.println(c);
+    }
+
+    @Test
+    public void findByUid(){
+        User user = userMapper.findByUid(25);
+        System.out.println(user);
+    }
+
+    @Test
+    public void updatePasswordByUid(){
+        Integer integer = userMapper.updatePasswordByUid(26, "123456", "tim17", new Date());
+        System.out.println(integer);
     }
 }

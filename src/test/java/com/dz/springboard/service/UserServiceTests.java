@@ -23,7 +23,7 @@ public class UserServiceTests {
     public void reg(){
         try {
             User user = new User();
-            user.setUsername("001");
+            user.setUsername("022");
             user.setPassword("123");
             userService.reg(user);
             System.out.println("OK");
@@ -55,6 +55,13 @@ public class UserServiceTests {
         log.info("length: {} name: {}", length2, username2);
     }
 
+    @Test
+    public void updatePasswordByUid(){
+        Integer integer = userService.updatePasswordByUid(28, "28", "123", "12345");
+        System.out.println(integer);
+        System.out.println(userService.findByUid(28));
+
+    }
 
 
 

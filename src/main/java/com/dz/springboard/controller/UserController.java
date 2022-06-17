@@ -32,4 +32,12 @@ public class UserController extends BaseController{
 
         return new JsonResult<>(OK,dara);
     }
+
+    @RequestMapping("updatepassword")
+    public JsonResult<Void> updatePassword(String oldPassword, String newPassword, HttpSession session){
+        Integer uid = getuidFromSession(session);
+        String username = getUsernameFromSession(session);
+        userService.updatePasswordByUid(uid, username, oldPassword, newPassword);
+        return new JsonResult<>(OK);
+    }
 }

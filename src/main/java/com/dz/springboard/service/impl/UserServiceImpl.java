@@ -3,10 +3,7 @@ package com.dz.springboard.service.impl;
 import com.dz.springboard.entity.User;
 import com.dz.springboard.mapper.UserMapper;
 import com.dz.springboard.service.IUserService;
-import com.dz.springboard.service.ex.InsertException;
-import com.dz.springboard.service.ex.PasswordNotMatchException;
-import com.dz.springboard.service.ex.UsernameDuplicateException;
-import com.dz.springboard.service.ex.UsernameNotFoundException;
+import com.dz.springboard.service.ex.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -58,6 +55,7 @@ public class UserServiceImpl implements IUserService {
         String oldPassword = result.getPassword();
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         boolean matches = encoder.matches(password, oldPassword);
+        log.info(String.valueOf("matches"+matches));
         if (!encoder.matches(password, oldPassword)){
             throw new PasswordNotMatchException("PasswordNotMatch");
         }
@@ -71,6 +69,25 @@ public class UserServiceImpl implements IUserService {
             throw new UsernameNotFoundException("UserNameNull");
         }
         return getUser(result);
+    }
+
+    @Override
+    public Integer updatePasswordByUid(Integer uid, String username, String oldPassword, String newPassword) {
+        User result = userMapper.findByUid(uid);
+        if (result == null || result.getIsDelete() == 1){
+            throw new UsernameDuplicateException("UserNo");
+        }
+        String newOldPassword = result.getPassword();
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        if (!encoder.matches(oldPassword, newOldPassword)){
+            throw new PasswordNotMatchException("PasswordNotMatch");
+        }
+        newPassword = encoder.encode(newPassword);
+        Integer rows = userMapper.updatePasswordByUid(uid, newPassword, username, new Date());
+        if (rows != 1) {
+            throw new UpdateException("UpdateException");
+        }
+        return rows;
     }
 
     private User getUser(User result) {

@@ -31,6 +31,9 @@ public class BaseController {
         }else if(e instanceof InsertException){
             result.setState(INSERT_FAIL);
             result.setMessage(INSERT_FAIL_MSG);
+        }else if(e instanceof UpdateException){
+            result.setState(5001);
+            result.setMessage("UpdateException");
         }
         return result;
     }
