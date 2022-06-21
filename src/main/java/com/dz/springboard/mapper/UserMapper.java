@@ -37,8 +37,9 @@ public interface UserMapper {
      * @param modifiedTime 用户的最后修改时间
      * @return 受影啊的行巍数（增、删、改）
      */
-     Integer updatePasswordByUid(Integer uid, String password, String modifiedUser, Date modifiedTime);
+    Integer updatePasswordByUid(Integer uid, String password, String modifiedUser, Date modifiedTime);
 
+    Integer updateInfoByUid(User user);
     Integer del(int uid);
 
 

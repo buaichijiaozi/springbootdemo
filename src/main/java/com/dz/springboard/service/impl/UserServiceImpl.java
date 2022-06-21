@@ -90,6 +90,37 @@ public class UserServiceImpl implements IUserService {
         return rows;
     }
 
+    @Override
+    public User getByUid(Integer uid) {
+        User result = userMapper.findByUid(uid);
+        if (result == null || result.getIsDelete() == 1){
+            throw new UsernameNotFoundException("usernameNoNull");
+        }
+        User user = new User();
+        user.setUsername(result.getUsername());
+        user.setPhone(result.getPhone());
+        user.setEmail(result.getEmail());
+        user.setGender(result.getGender());
+        return user;
+    }
+
+    @Override
+    public Integer updateInfoByUid(Integer uid, String username, User user) {
+        User result = userMapper.findByUid(uid);
+        if (result == null || result.getIsDelete() == 1){
+            throw new UsernameNotFoundException("usernameNoNull");
+        }
+        user.setUid(uid);
+        //user.setUsername(username);
+        user.setModifiedUser(username);
+        user.setModifiedTime(new Date());
+        Integer rows = userMapper.updateInfoByUid(user);
+        if (rows != 1){
+            throw new UpdateException("updateErr");
+        }
+        return rows;
+    }
+
     private User getUser(User result) {
         if (result.getIsDelete() == 1){
             throw new UsernameNotFoundException("UserNameDel");

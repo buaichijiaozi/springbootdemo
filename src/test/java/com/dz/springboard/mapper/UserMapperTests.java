@@ -72,4 +72,14 @@ public class UserMapperTests {
         Integer integer = userMapper.updatePasswordByUid(26, "123456", "tim17", new Date());
         System.out.println(integer);
     }
+
+    @Test
+    public void updateInfoByUid(){
+        User user = new User();
+        user.setUid(29);
+        user.setPhone("13126589510");
+        user.setEmail("136@163.com");
+        user.setGender(1);
+        userMapper.updateInfoByUid(user);
+    }
 }

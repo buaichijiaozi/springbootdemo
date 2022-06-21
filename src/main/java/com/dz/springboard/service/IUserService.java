@@ -2,8 +2,6 @@ package com.dz.springboard.service;
 
 import com.dz.springboard.entity.User;
 
-import java.util.Date;
-
 /**用户模块业务层接口*/
 public interface IUserService {
     /**
@@ -36,4 +34,8 @@ public interface IUserService {
      * @param newPassword 用户的新密码
      */
     Integer updatePasswordByUid(Integer uid,String username, String oldPassword, String newPassword);
+
+    User getByUid(Integer uid);
+
+    Integer updateInfoByUid(Integer uid, String username, User user);
 }

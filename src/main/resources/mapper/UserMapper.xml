@@ -58,4 +58,14 @@
         UPDATE t_user SET password=#{password}, modified_user=#{modifiedUser}, modified_time=#{modifiedTime} WHERE uid=#{uid}
     </update>
 
+    <update id="updateInfoByUid">
+        UPDATE t_user
+        SET <if test="phone!=null">phone=#{phone},</if>
+            <if test="email!=null">email=#{email},</if>
+            <if test="gender!=null">gender=#{gender},</if>
+            modified_user=#{modifiedUser},
+            modified_time=#{modifiedTime}
+        WHERE uid=#{uid}
+    </update>
+
 </mapper>
