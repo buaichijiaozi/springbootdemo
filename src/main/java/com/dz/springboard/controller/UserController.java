@@ -40,4 +40,18 @@ public class UserController extends BaseController{
         userService.updatePasswordByUid(uid, username, oldPassword, newPassword);
         return new JsonResult<>(OK);
     }
+
+    @RequestMapping("getbyuid")
+    public JsonResult<User> getByUid(HttpSession session){
+        User date = userService.getByUid(getuidFromSession(session));
+        return new JsonResult<>(OK,date);
+
+    }
+    @RequestMapping("updateinfo")
+    public JsonResult<Void> updateInfo(User user, HttpSession session){
+        Integer uid = getuidFromSession(session);
+        String username = getUsernameFromSession(session);
+        userService.updateInfoByUid(uid,username,user);
+        return new JsonResult<>(OK);
+    }
 }
