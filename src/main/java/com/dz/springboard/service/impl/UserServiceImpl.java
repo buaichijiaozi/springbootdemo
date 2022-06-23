@@ -74,7 +74,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public Integer updatePasswordByUid(Integer uid, String username, String oldPassword, String newPassword) {
         User result = userMapper.findByUid(uid);
-        if (result == null || result.getIsDelete() == 1){
+        if (result == null || result.getIsDelete().equals(1)){
             throw new UsernameDuplicateException("UserNo");
         }
         String newOldPassword = result.getPassword();
@@ -93,7 +93,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public User getByUid(Integer uid) {
         User result = userMapper.findByUid(uid);
-        if (result == null || result.getIsDelete() == 1){
+        if (result == null || result.getIsDelete().equals(1)){
             throw new UsernameNotFoundException("usernameNoNull");
         }
         User user = new User();
@@ -107,7 +107,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public Integer updateInfoByUid(Integer uid, String username, User user) {
         User result = userMapper.findByUid(uid);
-        if (result == null || result.getIsDelete() == 1){
+        if (result == null || result.getIsDelete().equals(1)){
             throw new UsernameNotFoundException("usernameNoNull");
         }
         user.setUid(uid);
@@ -117,6 +117,19 @@ public class UserServiceImpl implements IUserService {
         Integer rows = userMapper.updateInfoByUid(user);
         if (rows != 1){
             throw new UpdateException("updateErr");
+        }
+        return rows;
+    }
+
+    @Override
+    public Integer updateAvatarByUid(Integer uid, String avatar, String username) {
+        User result = userMapper.findByUid(uid);
+        if (result == null || result.getIsDelete().equals(1)){
+            throw new UsernameNotFoundException("userNoNull");
+        }
+        Integer rows = userMapper.updateAvatarByUid(uid, avatar, username, new Date());
+        if (rows != 1){
+            throw new UpdateException("UpdateException");
         }
         return rows;
     }

@@ -38,4 +38,6 @@ public interface IUserService {
     User getByUid(Integer uid);
 
     Integer updateInfoByUid(Integer uid, String username, User user);
+
+    Integer updateAvatarByUid(Integer uid,String avatar , String username);
 }

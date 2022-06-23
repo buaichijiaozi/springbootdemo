@@ -50,18 +50,6 @@ public class UserMapperTests {
     }
 
     @Test
-    public void loginn(){
-        String a = "123";
-        String b = "A6D4012D-EEDD-4F9C-982A-76959336FFCC";
-        String c = "";
-
-        for (int i = 0; i < 3; i++) {
-            c = DigestUtils.md5DigestAsHex((b + a + b).getBytes());
-        }
-        System.out.println(c);
-    }
-
-    @Test
     public void findByUid(){
         User user = userMapper.findByUid(25);
         System.out.println(user);
@@ -76,10 +64,16 @@ public class UserMapperTests {
     @Test
     public void updateInfoByUid(){
         User user = new User();
-        user.setUid(29);
-        user.setPhone("13126589510");
-        user.setEmail("136@163.com");
-        user.setGender(1);
+        user.setUid(32);
+        user.setPhone("15615208037");
+        user.setEmail("163@126.com");
+        user.setGender(0);
         userMapper.updateInfoByUid(user);
+    }
+    @Test
+    public void updateAvatarByUid(){
+        String str = "C:\\Users\\zhang\\Desktop\\2014ddc975294a7c.png";
+        Integer integer = userMapper.updateAvatarByUid(32, str, "032", new Date());
+        System.out.println(integer);
     }
 }

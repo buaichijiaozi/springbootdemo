@@ -23,7 +23,7 @@ public class UserServiceTests {
     public void reg(){
         try {
             User user = new User();
-            user.setUsername("023");
+            user.setUsername("001");
             user.setPassword("123");
             userService.reg(user);
             System.out.println("OK");
@@ -76,6 +76,13 @@ public class UserServiceTests {
         user.setGender(1);
         Integer integer = userService.updateInfoByUid(30, "022", user);
         System.err.println(integer);
+    }
+
+    @Test
+    public void updateAvatarByUid(){
+        String str = "\"C:\\Users\\zhang\\Desktop\\94503591_p0.jpg\"";
+        Integer rows = userService.updateAvatarByUid(32, str, "032");
+        log.info(String.valueOf(rows));
     }
 
 

@@ -4,6 +4,7 @@ import com.dz.springboard.entity.User;
 
 import java.util.Date;
 
+
 /**
  * 用户模块的持久层接口
  */
@@ -40,6 +41,8 @@ public interface UserMapper {
     Integer updatePasswordByUid(Integer uid, String password, String modifiedUser, Date modifiedTime);
 
     Integer updateInfoByUid(User user);
+
+    Integer updateAvatarByUid(Integer uid, String avatar, String modifiedUser, Date modifiedTime);
     Integer del(int uid);
 
 
