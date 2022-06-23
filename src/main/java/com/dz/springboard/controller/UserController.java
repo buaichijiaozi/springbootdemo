@@ -95,6 +95,7 @@ public class UserController extends BaseController{
         if (!dir.exists()){
             dir.mkdirs();
         }
+        log.info(String.valueOf(dir));
         String originalFilename = file.getOriginalFilename();
         log.info(originalFilename);
         String filename = UUID.randomUUID().toString().toUpperCase() + originalFilename.substring(originalFilename.lastIndexOf("."));

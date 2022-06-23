@@ -152,6 +152,7 @@
 				dataType: "JSON",
 				success: function (json) {
 					if(json.state === 200){
+						$.cookie("avatar",json.data,{expires: 7});
 						location.href = "index.html";
 					}else {
 						alert("登录失败");
