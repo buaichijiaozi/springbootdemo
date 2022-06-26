@@ -7,7 +7,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -51,7 +50,7 @@ public class UserMapperTests {
 
     @Test
     public void findByUid(){
-        User user = userMapper.findByUid(25);
+        User user = userMapper.findByUid(32);
         System.out.println(user);
     }
 

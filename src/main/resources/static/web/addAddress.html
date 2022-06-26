@@ -287,6 +287,26 @@
 			</div>
 		</footer>
 		<!--页脚结束-->
+	<script>
+		$("#btn-add-new-address").click(function () {
+			$.ajax({
+				url: "/address/add_new_address",
+				type: "POST",
+				data: $("#form-add-new-address").serialize(),
+				dataType: "JSON",
+				success: function (json) {
+					if(json.state === 200){
+						console.log("OK")
+					}else {
+						console.log("NO")
+					}
+				},
+				error: function (xhr) {
+					alert("请求失败"+xhr.message);
+				}
+			})
+		})
+	</script>
 	</body>
 
 </html>

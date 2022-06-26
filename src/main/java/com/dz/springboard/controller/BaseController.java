@@ -10,8 +10,22 @@ import javax.servlet.http.HttpSession;
 /**  */
 public class BaseController {
     public static final int OK = 200;
-    public static final int USERNAME_DUPLICATE = 4000;
-    public static final int INSERT_FAIL = 5000;
+    public static final int SERVER_ERROR = 500;
+    public static final Integer USERNAME_DUPLICATE = 4000;
+    public static final Integer PARAM_ERROR = 4001;
+    public static final Integer USERNAME_OR_PASSWORD_ERROR = 4002;
+    public static final Integer USER_NOT_EXIST = 4003;
+    public static final Integer INSERT_FAIL = 5000;
+    public static final Integer USERNAME_NOT_FOUND = 5001;
+    public static final Integer PASSWORD_NOT_MATCH = 5002;
+    public static final Integer UPDATE_FAIL = 5003;
+    public static final Integer DELETE_FAIL = 5004;
+    public static final Integer FILE_EMPTY = 6000;
+    public static final Integer FILE_SIZE = 6001;
+    public static final Integer FILE_TYPE = 6002;
+    public static final Integer FILE_STATE = 6003;
+    public static final Integer FILE_UPLOAD_IO = 6004;
+
 
     public static final String USERNAME_DUPLICATE_MSG = "用户名已经被占用";
     public static final String INSERT_FAIL_MSG = "注册失败，请联系系统管理员";
@@ -23,7 +37,10 @@ public class BaseController {
         if(e instanceof UsernameDuplicateException){
             result.setState(USERNAME_DUPLICATE);
             result.setMessage(USERNAME_DUPLICATE_MSG);
-        } else if(e instanceof UsernameNotFoundException){
+        } else if (e instanceof AddressCountLimitException) {
+            result.setState(USER_NOT_EXIST);
+            result.setMessage("用户的收货地址超出上限的异常");
+        }else if(e instanceof UsernameNotFoundException){
             result.setState(5001);
             result.setMessage("用户不存在");
         } else if(e instanceof PasswordNotMatchException){

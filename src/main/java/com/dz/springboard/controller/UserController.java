@@ -75,7 +75,7 @@ public class UserController extends BaseController{
         return new JsonResult<>(OK);
     }
 
-    @RequestMapping("updateavatar")
+    /*@RequestMapping("updateavatar")
     public JsonResult<String> updateAvatar(HttpSession session, @RequestParam("file") MultipartFile file){
         log.info("UpdateAvatarOK");
         if (file.isEmpty()){
@@ -112,5 +112,34 @@ public class UserController extends BaseController{
         String avatar = "/upload/" + filename;
         userService.updateAvatarByUid(uid,avatar,username);
         return new JsonResult<>(OK,avatar);
-    }
+    }*/
+    /*@RequestMapping("updateAvatar")
+    public JsonResult<String> updateAvatar(HttpSession session, @RequestParam("file") MultipartFile file){
+        if (file.isEmpty()) {
+            return new JsonResult<>(PARAM_ERROR, "文件为空");
+        }
+        if (file.getSize() > AVATAR_MAX_SIZE) {
+            return new JsonResult<>(PARAM_ERROR, "文件大小超过限制");
+        }
+        if (!AVATAR_TYPE.contains(file.getContentType())) {
+            return new JsonResult<>(PARAM_ERROR, "文件类型错误");
+        }
+        String fileName = file.getOriginalFilename();
+        String suffix = fileName.substring(fileName.lastIndexOf(".") + 1);
+        String newFileName = UUID.randomUUID().toString() + "." + suffix;
+        String path = "upload/" + newFileName;
+        log.info(path);
+        File dest = new File(path);
+        try {
+            file.transferTo(dest);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new JsonResult<>(SERVER_ERROR, "服务器错误");
+        }
+        Integer uid = getuidFromSession(session);
+        String username = getUsernameFromSession(session);
+        Integer integer = userService.updateAvatarByUid(uid, newFileName, username);
+        log.info(String.valueOf(integer));
+        return new JsonResult<>(OK);
+    }*/
 }
