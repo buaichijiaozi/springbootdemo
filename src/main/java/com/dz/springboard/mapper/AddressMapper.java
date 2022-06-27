@@ -9,4 +9,6 @@ public interface AddressMapper {
     Integer findByUid(Integer uid);
     Address ByUid(Integer uid);
 
+
+
 }
