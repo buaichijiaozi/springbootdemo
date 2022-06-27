@@ -21,7 +21,7 @@ public class AddressMapperTests {
     @Test
     public void insert() {
         Address address = new Address();
-        address.setUid(32);
+        address.setUid(16);
         address.setName("admin");
         address.setPhone("17858802974");
         address.setAddress("雁塔区小寨赛格");
@@ -31,7 +31,7 @@ public class AddressMapperTests {
 
     @Test
     public void findByUid() {
-        Integer address = addressMapper.findByUid(32);
+        Integer address = addressMapper.findByUid(16);
         System.out.println(address);
     }
 }

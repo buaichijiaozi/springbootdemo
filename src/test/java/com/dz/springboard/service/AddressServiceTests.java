@@ -19,7 +19,7 @@ public class AddressServiceTests {
 
     @Test
     public void addNewAddress() {
-        Integer uid = 32;
+        Integer uid = 16;
         String username = "admin";
         Address address = new Address();
         address.setUid(uid);

@@ -154,6 +154,7 @@
 					if(json.state === 200){
 						$.cookie("avatar",json.data,{expires: 7});
 						location.href = "index.html";
+						console.log("login OK")
 					}else {
 						alert("登录失败");
 					}

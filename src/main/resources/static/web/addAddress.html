@@ -19,8 +19,11 @@
 		<link rel="stylesheet" type="text/css" href="../css/layout.css" />
 		<link rel="stylesheet" type="text/css" href="../css/top.css" />
 		<link rel="stylesheet" type="text/css" href="../css/footer.css" />
+		<!--
 		<script type="text/javascript" src="../js/distpicker.data.js"></script>
 		<script type="text/javascript" src="../js/distpicker.js"></script>
+		-->
+
 	</head>
 
 	<body>
@@ -288,6 +291,36 @@
 		</footer>
 		<!--页脚结束-->
 	<script>
+		let defaultOption = '<option value="0">----- 请选择 -----</option>';
+		$(document).ready(function (){
+			showProvinceList();
+			$("#city-list").append(defaultOption);
+			$("#area-list").append(defaultOption);
+		})
+		function showProvinceList(){
+			$.ajax({
+				url: "/districts/",
+				type: "POST",
+				data: "parent=86",
+				dataType: "JSON",
+				success: function (json) {
+					if(json.state === 200){
+						let list = json.data;
+						for (let i = 0; i < list.length; i++) {
+							let option = "<option value='"+list[i].code+"'>"+list[i].name+"</option>";
+							$("#province-list").append(option);
+
+						}
+						console.log("OK")
+					}else {
+						console.log("districts "+"NO")
+					}
+				},
+				error: function (xhr) {
+					alert("请求失败"+xhr.message);
+				}
+			})
+		}
 		$("#btn-add-new-address").click(function () {
 			$.ajax({
 				url: "/address/add_new_address",

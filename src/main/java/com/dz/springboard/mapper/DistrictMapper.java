@@ -9,4 +9,6 @@ public interface DistrictMapper {
 
     List<District> findByParent(String parent);
 
+    String findNameByCode(String code);
+
 }
