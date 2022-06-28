@@ -267,8 +267,8 @@
 									+ '<td><a onclick="setDefault(#{aid})" class="btn btn-xs add-def btn-default">设为默认</a></td>'
 									+ '</tr>';
 
-							address = address.replace(/#{aid}/g, list[i].aid);
-							address = address.replace(/#{tag}/g, list[i].tag);
+							address = address.replace("#{aid}", list[i].aid);
+							address = address.replace("#{tag}", list[i].tag);
 							address = address.replace("#{name}", list[i].name);
 							address = address.replace("#{address}", list[i].address);
 							address = address.replace("#{phone}", list[i].phone);
@@ -277,6 +277,36 @@
 						}
 						$(".add-def:eq(0)").hide();
 						console.log("OK");
+					}else {
+						console.log("NO");
+					}
+				}
+			})
+		}
+		function setDefault(aid){
+			$.ajax({
+				url: "/address/set_default/" + aid,
+				type: "POST",
+				dataType: "JSON",
+				success: function (json) {
+					if (json.state === 200) {
+						console.log("OK");
+						location.reload();
+					}else {
+						console.log("NO");
+					}
+				}
+			})
+		}
+		function deleteByAid(aid){
+			$.ajax({
+				url: "/address/delete/" + aid,
+				type: "POST",
+				dataType: "JSON",
+				success: function (json) {
+					if (json.state === 200) {
+						console.log("OK");
+						location.reload();
 					}else {
 						console.log("NO");
 					}

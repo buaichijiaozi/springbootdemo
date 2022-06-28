@@ -44,7 +44,7 @@ public class AddressMapperTests {
 
     @Test
     public void findByAid(){
-        Address address = addressMapper.findByAid(1);
+        Address address = addressMapper.findByAid(24);
         System.out.println(address);
 
     }
@@ -68,5 +68,17 @@ public class AddressMapperTests {
         Address address = addressMapper.findByAid(1);
         System.out.println(address);
 
+    }
+
+    @Test
+    public void deleteByAid(){
+        Integer integer = addressMapper.deleteByAid(18);
+        System.out.println(integer);
+    }
+
+    @Test
+    public void findLastModified(){
+        Address address = addressMapper.findLastModified(32);
+        System.out.println(address);
     }
 }

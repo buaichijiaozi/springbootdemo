@@ -39,18 +39,18 @@ public class UserController extends BaseController{
     @RequestMapping("reg")
     public JsonResult<Void> reg(User user) {
         userService.reg(user);
-        return new JsonResult<>(OK);
+        return new JsonResult<>(OK, "OK");
     }
 
     @RequestMapping("login")
     public JsonResult<User> login(String username, String password, HttpSession session){
-        User dara = userService.login(username,password);
-        session.setAttribute("uid",dara.getUid());
-        session.setAttribute("username",dara.getUsername());
+        User data = userService.login(username,password);
+        session.setAttribute("uid",data.getUid());
+        session.setAttribute("username",data.getUsername());
         System.out.println(getuidFromSession(session));
         System.out.println(getUsernameFromSession(session));
 
-        return new JsonResult<>(OK,dara);
+        return new JsonResult<>(OK,"登录成功",data);
     }
 
     @RequestMapping("updatepassword")
@@ -58,13 +58,13 @@ public class UserController extends BaseController{
         Integer uid = getuidFromSession(session);
         String username = getUsernameFromSession(session);
         userService.updatePasswordByUid(uid, username, oldPassword, newPassword);
-        return new JsonResult<>(OK);
+        return new JsonResult<>(OK,"OK");
     }
 
     @RequestMapping("getbyuid")
     public JsonResult<User> getByUid(HttpSession session){
         User date = userService.getByUid(getuidFromSession(session));
-        return new JsonResult<>(OK,date);
+        return new JsonResult<>(OK,"OK",date);
 
     }
     @RequestMapping("updateinfo")
@@ -72,7 +72,7 @@ public class UserController extends BaseController{
         Integer uid = getuidFromSession(session);
         String username = getUsernameFromSession(session);
         userService.updateInfoByUid(uid,username,user);
-        return new JsonResult<>(OK);
+        return new JsonResult<>(OK,"OK");
     }
 
     /*@RequestMapping("updateavatar")

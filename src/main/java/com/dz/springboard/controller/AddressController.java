@@ -4,6 +4,7 @@ import com.dz.springboard.entity.Address;
 import com.dz.springboard.service.IAddressService;
 import com.dz.springboard.util.JsonResult;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,14 +26,32 @@ public class AddressController extends BaseController{
         String username = getUsernameFromSession(session);
         addressService.addNewAddress(uid, username, address);
         log.info(String.valueOf(address));
-        return new JsonResult<>(OK,address);
+        return new JsonResult<>(OK,"OK",address);
     }
 
     @RequestMapping({"","/"})
     public JsonResult<List<Address>> getByUid(HttpSession session){
         Integer uid = getuidFromSession(session);
         List<Address> list = addressService.getByUid(uid);
-        return new JsonResult<>(OK,list);
+        return new JsonResult<>(OK,"OK",list);
+    }
+
+    @RequestMapping("/set_default/{aid}")
+    public JsonResult<Void> setDefault(@PathVariable("aid") Integer aid, HttpSession session){
+        log.info("setDefault " + aid);
+        Integer uid = getuidFromSession(session);
+        String username = getUsernameFromSession(session);
+        addressService.setDefault(aid, uid, username);
+        return new JsonResult<>(OK,"OK");
+    }
+
+    @RequestMapping("/delete/{aid}")
+    public JsonResult<Void> delete(@PathVariable("aid") Integer aid, HttpSession session){
+        log.info("delete " + aid);
+        Integer uid = getuidFromSession(session);
+        String username = getUsernameFromSession(session);
+        addressService.delete(aid, uid, username);
+        return new JsonResult<>(OK,"OK");
     }
 
 }

@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 @SpringBootTest
@@ -21,7 +22,7 @@ public class AddressServiceTests {
 
     @Test
     public void addNewAddress() {
-        Integer uid = 16;
+        Integer uid = 32;
         String username = "admin";
         Address address = new Address();
         address.setUid(uid);
@@ -43,6 +44,15 @@ public class AddressServiceTests {
     public void setDefault(){
         addressService.setDefault(1,16,"002");
         List<Address> address = addressService.getByUid(16);
+        for (Address address1 : address) {
+            System.out.println(address1);
+        }
+    }
+
+    @Test
+    public void delete(){
+        addressService.delete(20,32,"002");
+        List<Address> address = addressService.getByUid(32);
         for (Address address1 : address) {
             System.out.println(address1);
         }

@@ -79,10 +79,10 @@ public class AddressServiceImpl implements IAddressService {
     public void setDefault(Integer aid, Integer uid, String username) {
         Address result = addressMapper.findByAid(aid);
         if (result == null){
-            throw new AddressNotFoundException("TelNo");
+            throw new AddressNotFoundException("Tel not found");
         }
         if (!result.getUid().equals(uid)){
-            throw new AccessDeniedException("Err");
+            throw new AccessDeniedException("Tel not belong to you");
         }
         Integer rows = addressMapper.updateNonDefault(uid);
         if (rows < 1){
@@ -92,6 +92,35 @@ public class AddressServiceImpl implements IAddressService {
         if (rows < 1){
             throw new UpdateException("UpdateErr");
         }
+    }
+
+    @Override
+    public void delete(Integer aid, Integer uid, String username) {
+        Address result = addressMapper.findByAid(aid);
+        if (result == null){
+            throw new AddressNotFoundException("Tel not found");
+        } else if (!result.getUid().equals(uid)){
+            throw new AccessDeniedException("Tel not belong to you");
+        }
+
+        Integer rows = addressMapper.deleteByAid(aid);
+        if (rows < 1){
+            throw new UpdateException("UpdateErr");
+        }
+
+        Integer count = addressMapper.countByUid(uid);
+        if (count == 0){
+            return;
+        } else if (result.getIsDefault() == 1){
+            return;
+        }
+
+        Address lastModified = addressMapper.findLastModified(uid);
+        rows = addressMapper.updateDefaultByAid(lastModified.getAid(), username, new Date());
+        if (rows < 1){
+            throw new UpdateException("UpdateErr");
+        }
+
     }
 
     private static void addressSet(String username, Address address) {
