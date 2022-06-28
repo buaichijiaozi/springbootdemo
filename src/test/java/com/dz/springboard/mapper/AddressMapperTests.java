@@ -30,8 +30,43 @@ public class AddressMapperTests {
     }
 
     @Test
-    public void findByUid() {
-        Integer address = addressMapper.findByUid(16);
+    public void countByUid() {
+        Integer address = addressMapper.countByUid(16);
         System.out.println(address);
+    }
+
+    @Test
+    public void findByUid(){
+        for (Address address : addressMapper.findByUid(16)) {
+            System.out.println(address);
+        }
+    }
+
+    @Test
+    public void findByAid(){
+        Address address = addressMapper.findByAid(1);
+        System.out.println(address);
+
+    }
+
+    @Test
+    public void updateNonDefault(){
+        Integer integer = addressMapper.updateNonDefault(16);
+        System.out.println(integer);
+        Address address = addressMapper.findByAid(1);
+        System.out.println(address.getIsDefault());
+        Address address2 = addressMapper.findByAid(2);
+        System.out.println(address2.getIsDefault());
+
+    }
+
+    @Test
+    public void updateDefaultByAid(){
+        Date date = new Date();
+        Integer integer = addressMapper.updateDefaultByAid(1, "001", date);
+        System.out.println(integer);
+        Address address = addressMapper.findByAid(1);
+        System.out.println(address);
+
     }
 }

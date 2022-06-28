@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -25,6 +26,13 @@ public class AddressController extends BaseController{
         addressService.addNewAddress(uid, username, address);
         log.info(String.valueOf(address));
         return new JsonResult<>(OK,address);
+    }
+
+    @RequestMapping({"","/"})
+    public JsonResult<List<Address>> getByUid(HttpSession session){
+        Integer uid = getuidFromSession(session);
+        List<Address> list = addressService.getByUid(uid);
+        return new JsonResult<>(OK,list);
     }
 
 }

@@ -150,15 +150,6 @@
 								</tr>
 							</thead>
 							<tbody id="address-list">
-								<tr>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td><a class="btn btn-xs btn-info"><span class="fa fa-edit"></span> 修改</a></td>
-									<td><a class="btn btn-xs add-del btn-info"><span class="fa fa-trash-o"></span> 删除</a></td>
-									<td><a class="btn btn-xs add-def btn-default">设为默认</a></td>
-								</tr>
 							</tbody>
 						</table>
 						<a href="addAddress.html" class="btn btn-sm btn-primary"><span class="fa fa-plus"></span>新增收货地址</a>
@@ -251,6 +242,48 @@
 			</div>
 		</footer>
 		<!--页脚结束-->
+	<script type="text/javascript">
+		$(document).ready(function (){
+			showAddressList();
+		})
+		function showAddressList(){
+			$.ajax({
+				url: "/address/",
+				type: "POST",
+				dataType: "JSON",
+				success: function (json) {
+					if (json.state === 200) {
+						let list = json.data;
+						for (let i = 0; i < list.length; i++) {
+							console.log("name " + list[i].name);
+							let address =
+									'<tr>'
+									+ '<td>#{tag}</td>'
+									+ '<td>#{name}</td>'
+									+ '<td>#{province}#{city}#{area}#{address}</td>'
+									+ '<td>#{phone}</td>'
+									+ '<td><a class="btn btn-xs btn-info"><span class="fa fa-edit"></span>修改</a></td>'
+									+ '<td><a onclick="deleteByAid(#{aid})" class="btn btn-xs add-del btn-info"><span class="fa fa-trash-o"></span>删除</a></td>'
+									+ '<td><a onclick="setDefault(#{aid})" class="btn btn-xs add-def btn-default">设为默认</a></td>'
+									+ '</tr>';
+
+							address = address.replace(/#{aid}/g, list[i].aid);
+							address = address.replace(/#{tag}/g, list[i].tag);
+							address = address.replace("#{name}", list[i].name);
+							address = address.replace("#{address}", list[i].address);
+							address = address.replace("#{phone}", list[i].phone);
+
+							$("#address-list").append(address);
+						}
+						$(".add-def:eq(0)").hide();
+						console.log("OK");
+					}else {
+						console.log("NO");
+					}
+				}
+			})
+		}
+	</script>
 	</body>
 
 </html>

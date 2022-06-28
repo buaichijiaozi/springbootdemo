@@ -4,14 +4,14 @@ import com.dz.springboard.entity.Address;
 import com.dz.springboard.mapper.AddressMapper;
 import com.dz.springboard.mapper.DistrictMapper;
 import com.dz.springboard.service.IAddressService;
-import com.dz.springboard.service.ex.AddressCountLimitException;
-import com.dz.springboard.service.ex.InsertException;
+import com.dz.springboard.service.ex.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 
 /** 用户模块业务层的实现类 */
 @Slf4j
@@ -28,7 +28,7 @@ public class AddressServiceImpl implements IAddressService {
 
     @Override
     public void addNewAddress(Integer uid, String username, Address address) {
-        Integer count = addressMapper.findByUid(uid);
+        Integer count = addressMapper.countByUid(uid);
         if (count >= maxCount) {
             throw new AddressCountLimitException("AddressCountOverLimit");
         }
@@ -54,6 +54,44 @@ public class AddressServiceImpl implements IAddressService {
         Address address = addressMapper.ByUid(uid);
         address.setUid(address.getUid());
         return address;
+    }
+
+    @Override
+    public List<Address> getByUid(Integer uid) {
+        List<Address> list = addressMapper.findByUid(uid);
+        /*for (Address address: list){
+            address.setAid(null);
+            address.setUid(null);
+            address.setProvinceCode(null);
+            address.setCityCode(null);
+            address.setAreaCode(null);
+            address.setTel(null);
+            address.setIsDefault(null);
+            address.setCreatedUser(null);
+            address.setCreatedTime(null);
+            address.setModifiedUser(null);
+            address.setModifiedTime(null);
+        }*/
+        return list;
+    }
+
+    @Override
+    public void setDefault(Integer aid, Integer uid, String username) {
+        Address result = addressMapper.findByAid(aid);
+        if (result == null){
+            throw new AddressNotFoundException("TelNo");
+        }
+        if (!result.getUid().equals(uid)){
+            throw new AccessDeniedException("Err");
+        }
+        Integer rows = addressMapper.updateNonDefault(uid);
+        if (rows < 1){
+            throw new UpdateException("UpdateErr");
+        }
+        rows = addressMapper.updateDefaultByAid(aid, username, new Date());
+        if (rows < 1){
+            throw new UpdateException("UpdateErr");
+        }
     }
 
     private static void addressSet(String username, Address address) {
