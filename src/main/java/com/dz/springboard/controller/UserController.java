@@ -35,7 +35,7 @@ public class UserController extends BaseController{
         AVATAR_TYPE.add("image/bmp");
         AVATAR_TYPE.add("image/webp");
     }
-    ArrayList<String> list = (ArrayList<String>) AVATAR_TYPE;
+    ArrayList<String> list = new ArrayList<>(AVATAR_TYPE);
 
     @RequestMapping("reg")
     public JsonResult<Void> reg(User user) {
