@@ -4,7 +4,7 @@ import com.dz.springboard.entity.Product;
 
 import java.util.List;
 
-public interface ProductService {
+public interface IProductService {
     List<Product> findHotList();
     Product findById(Integer id);
 }

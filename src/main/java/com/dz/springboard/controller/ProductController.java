@@ -1,7 +1,7 @@
 package com.dz.springboard.controller;
 
 import com.dz.springboard.entity.Product;
-import com.dz.springboard.service.ProductService;
+import com.dz.springboard.service.IProductService;
 import com.dz.springboard.util.JsonResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.amqp.RabbitProperties;
@@ -20,7 +20,7 @@ import static com.dz.springboard.controller.BaseController.OK;
 public class ProductController extends RabbitProperties.BaseContainer {
 
     @Resource
-    private ProductService productService;
+    private IProductService productService;
 
     @RequestMapping("hot_list")
     public JsonResult<List<Product>> getHotList(){
