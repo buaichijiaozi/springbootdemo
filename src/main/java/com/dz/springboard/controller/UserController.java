@@ -35,6 +35,7 @@ public class UserController extends BaseController{
         AVATAR_TYPE.add("image/bmp");
         AVATAR_TYPE.add("image/webp");
     }
+    ArrayList<String> list = (ArrayList<String>) AVATAR_TYPE;
 
     @RequestMapping("reg")
     public JsonResult<Void> reg(User user) {
@@ -47,8 +48,8 @@ public class UserController extends BaseController{
         User data = userService.login(username,password);
         session.setAttribute("uid",data.getUid());
         session.setAttribute("username",data.getUsername());
-        System.out.println(getuidFromSession(session));
-        System.out.println(getUsernameFromSession(session));
+        log.info("getuidFromSession: {}",getuidFromSession(session));
+        log.info("getUsernameFromSession: {}",getUsernameFromSession(session));
 
         return new JsonResult<>(OK,"登录成功",data);
     }

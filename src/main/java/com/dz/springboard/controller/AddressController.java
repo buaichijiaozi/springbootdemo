@@ -25,7 +25,7 @@ public class AddressController extends BaseController{
         Integer uid = getuidFromSession(session);
         String username = getUsernameFromSession(session);
         addressService.addNewAddress(uid, username, address);
-        log.info(String.valueOf(address));
+        log.info("ADD NEW ADDRESS: {}", address);
         return new JsonResult<>(OK,"OK",address);
     }
 
@@ -38,7 +38,7 @@ public class AddressController extends BaseController{
 
     @RequestMapping("/set_default/{aid}")
     public JsonResult<Void> setDefault(@PathVariable("aid") Integer aid, HttpSession session){
-        log.info("setDefault " + aid);
+        log.info("SET DEFAULT ADDRESS: {}", aid);
         Integer uid = getuidFromSession(session);
         String username = getUsernameFromSession(session);
         addressService.setDefault(aid, uid, username);
@@ -47,7 +47,7 @@ public class AddressController extends BaseController{
 
     @RequestMapping("/delete/{aid}")
     public JsonResult<Void> delete(@PathVariable("aid") Integer aid, HttpSession session){
-        log.info("delete " + aid);
+        log.info("DELETE ADDRESS: {}", aid);
         Integer uid = getuidFromSession(session);
         String username = getUsernameFromSession(session);
         addressService.delete(aid, uid, username);
