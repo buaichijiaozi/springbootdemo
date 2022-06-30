@@ -32,7 +32,6 @@ public class ProductController extends RabbitProperties.BaseContainer {
     public JsonResult<Product> getById(@PathVariable("id") Integer id){
         Product data = productService.findById(id);
         return new JsonResult<>(OK,"Ok",data);
-
     }
 
 }
