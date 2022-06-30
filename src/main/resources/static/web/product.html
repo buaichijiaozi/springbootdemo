@@ -23,6 +23,7 @@
 		<link rel="stylesheet" type="text/css" href="../css/imgmove.css" />
 		<script src="../js/product.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/imgmove.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/jquery-getUrlParam.js" type="text/javascript" charset="UTF-8"></script>
 	</head>
 
 	<body>
@@ -295,7 +296,32 @@
 			</div>
 		</footer>
 		<!--页脚结束-->
-		<script type="text/javascript" src="../js/jquery-getUrlParam.js"></script>
+		<script type="text/javascript">
+			let id = $.getUrlParam("id");
+			$(document).ready(function (){
+				$.ajax({
+					url: "/products/details/"+id,
+					type: "GET",
+					dataType: "JSON",
+					success: function (json) {
+						if (json.state === 200) {
+							$("#product-title").html(json.data.title);
+							$("#product-sell-point").html(json.data.sellPoint);
+							$("#product-price").html(json.data.price);
+							for (let i = 1; i <= 5; i++) {
+								$("#product-image-" + i + "-big").attr("src", ".." + json.data.image + i + "_big.png");
+								$("#product-image-" + i).attr("src", ".." + json.data.image + i + ".jpg");
+							}
+							console.log("product "+"OK");
+						} else if (json.state === 4006){
+							location.href = "index.html";
+						} else {
+							console.log("Product No "+json.message);
+						}
+					}
+				})
+			})
+		</script>
 	</body>
 
 </html>

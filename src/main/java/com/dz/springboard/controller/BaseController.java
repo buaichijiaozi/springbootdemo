@@ -30,9 +30,12 @@ public class BaseController {
         } else if (e instanceof AddressNotFoundException) {
             result.setState(4004);
             result.setMessage("Tel not found");
-        }else if (e instanceof AccessDeniedException) {
+        } else if (e instanceof AccessDeniedException) {
             result.setState(4005);
             result.setMessage("Tel date Access denied");
+        } else if (e instanceof ProductNotFoundException) {
+            result.setState(4006);
+            result.setMessage("Product date not found");
         }else if(e instanceof UsernameNotFoundException){
             result.setState(5001);
             result.setMessage("Username not found");
