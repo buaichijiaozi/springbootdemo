@@ -1,6 +1,7 @@
 package com.dz.springboard.mapper;
 
 import com.dz.springboard.entity.Cart;
+import com.dz.springboard.vo.CareVo;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,4 +41,10 @@ public class CartMapperTests {
         Cart cart = cartMapper.findByUidAndPid(32, 10000011);
         log.info("cart: {}", cart);
     }
+
+    @Test
+    public void findVoByUid(){
+        System.out.println(cartMapper.findVoByUid(16));
+    }
+
 }

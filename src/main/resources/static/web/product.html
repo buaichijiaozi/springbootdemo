@@ -321,6 +321,28 @@
 					}
 				})
 			})
+
+			$("#btn-add-to-cart").click(function (){
+				$.ajax({
+					url: "/carts/add_to_cart",
+					type: "GET",
+					data: {
+						"pid": id,
+						"amount": $("#num").val(),
+					},
+					dataType: "JSON",
+					success: function (json) {
+						if(json.state === 200){
+							console.log("Care OK");
+						}else {
+							console.log("Care No");
+						}
+					},
+					error: function (xhr) {
+						alert("请求失败"+xhr.message);
+					}
+				})
+			})
 		</script>
 	</body>
 
