@@ -16,4 +16,6 @@ public interface CartMapper {
     Cart findByUidAndPid(@PathVariable("uid") Integer uid, @PathVariable("pid") Integer pid);
 
     List<CareVo> findVoByUid(Integer uid);
+
+    Cart findByCid(Integer cid);
 }

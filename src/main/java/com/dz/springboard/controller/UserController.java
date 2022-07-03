@@ -27,15 +27,13 @@ public class UserController extends BaseController{
     private IUserService userService;
 
     private static final Integer AVATAR_MAX_SIZE = 11534336;
-    private static final List<String> AVATAR_TYPE = new ArrayList<>();
+    private static final List<String> AVATAR_TYPE = new ArrayList<String>(){{
+        add("image/jpeg");
+        add("image/png");
+        add("image/bmp");
+        add("image/webp");
+    }};
 
-    static {
-        AVATAR_TYPE.add("image/jpeg");
-        AVATAR_TYPE.add("image/png");
-        AVATAR_TYPE.add("image/bmp");
-        AVATAR_TYPE.add("image/webp");
-    }
-    ArrayList<String> list = new ArrayList<>(AVATAR_TYPE);
 
     @RequestMapping("reg")
     public JsonResult<Void> reg(User user) {

@@ -3,11 +3,11 @@ package com.dz.springboard.controller;
 import com.dz.springboard.controller.ex.*;
 import com.dz.springboard.service.ex.*;
 import com.dz.springboard.util.JsonResult;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.servlet.http.HttpSession;
 
-/**  */
 public class BaseController {
     public static final int OK = 200;
     public static final Integer USERNAME_DUPLICATE = 4000;
@@ -18,10 +18,10 @@ public class BaseController {
     public static final String INSERT_FAIL_MSG = "注册失败，请联系系统管理员";
 
 
-    @ExceptionHandler({ServiceException.class,FileUploadException.class})
-    public JsonResult<Void> handleException(Throwable e){
+    @ExceptionHandler({ServiceException.class, FileUploadException.class})
+    public JsonResult<Void> handleException(Throwable e) {
         JsonResult<Void> result = new JsonResult<>(e);
-        if(e instanceof UsernameDuplicateException){
+        if (e instanceof UsernameDuplicateException) {
             result.setState(USERNAME_DUPLICATE);
             result.setMessage(USERNAME_DUPLICATE_MSG);
         } else if (e instanceof AddressCountLimitException) {
@@ -36,16 +36,19 @@ public class BaseController {
         } else if (e instanceof ProductNotFoundException) {
             result.setState(4006);
             result.setMessage("Product date not found");
-        }else if(e instanceof UsernameNotFoundException){
+        } else if (e instanceof CartNotFoundException) {
+            result.setState(4007);
+            result.setMessage("Cart date not found");
+        } else if (e instanceof UsernameNotFoundException) {
             result.setState(5001);
             result.setMessage("Username not found");
-        } else if(e instanceof PasswordNotMatchException){
+        } else if (e instanceof PasswordNotMatchException) {
             result.setState(5002);
             result.setMessage("Password not match");
-        } else if(e instanceof InsertException){
+        } else if (e instanceof InsertException) {
             result.setState(INSERT_FAIL);
             result.setMessage(INSERT_FAIL_MSG);
-        } else if(e instanceof UpdateException){
+        } else if (e instanceof UpdateException) {
             result.setState(5001);
             result.setMessage("UpdateException");
         } else if (e instanceof FileEmptyException) {
@@ -62,11 +65,11 @@ public class BaseController {
         return result;
     }
 
-    protected final Integer getuidFromSession(HttpSession session){
+    protected final Integer getuidFromSession(@NotNull HttpSession session) {
         return Integer.valueOf(session.getAttribute("uid").toString());
     }
 
-    protected final String getUsernameFromSession(HttpSession session){
+    protected final String getUsernameFromSession(HttpSession session) {
         return session.getAttribute("username").toString();
     }
 }

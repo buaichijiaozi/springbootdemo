@@ -55,7 +55,7 @@ public class UserServiceImpl implements IUserService {
         String oldPassword = result.getPassword();
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         boolean matches = encoder.matches(password, oldPassword);
-        log.info("MATCHES: {}", matches);
+        log.info("matches: {}", matches);
         if (!encoder.matches(password, oldPassword)){
             throw new PasswordNotMatchException("PasswordNotMatch");
         }
