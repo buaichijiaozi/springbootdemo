@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 @Slf4j
@@ -94,5 +95,19 @@ public class CartServiceImpl implements ICartService {
             throw new UpdateException("Cart Update Exception");
         }
         return num;
+    }
+
+    @Override
+    public List<CareVo> getVoByCid(Integer uid, Integer[] cids) {
+        List<CareVo> list = cartMapper.findVoByCid(cids);
+        /*Iterator<CareVo> iterator = list.iterator();
+        while (iterator.hasNext()){
+            CareVo next = iterator.next();
+            if (!next.getUid().equals(uid)){
+                list.remove(next);
+            }
+        }*/
+        /*list.removeIf(next -> !next.getUid().equals(uid));*/
+        return list;
     }
 }

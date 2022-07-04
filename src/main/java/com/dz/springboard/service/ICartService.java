@@ -10,4 +10,6 @@ public interface ICartService {
 
     Integer addNum(Integer cid, Integer uid, String modifiedUser);
     Integer reduceNum(Integer cid, Integer uid, String modifiedUser);
+
+    List<CareVo> getVoByCid(Integer uid, Integer[] cids);
 }
