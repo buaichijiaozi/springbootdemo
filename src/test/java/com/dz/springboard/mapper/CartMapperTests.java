@@ -1,7 +1,6 @@
 package com.dz.springboard.mapper;
 
 import com.dz.springboard.entity.Cart;
-import com.dz.springboard.vo.CareVo;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;

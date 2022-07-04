@@ -1,7 +1,7 @@
 package com.dz.springboard.mapper;
 
 import com.dz.springboard.entity.Cart;
-import com.dz.springboard.vo.CareVo;
+import com.dz.springboard.vo.CartVO;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Date;
@@ -15,9 +15,9 @@ public interface CartMapper {
 
     Cart findByUidAndPid(@PathVariable("uid") Integer uid, @PathVariable("pid") Integer pid);
 
-    List<CareVo> findVoByUid(Integer uid);
+    List<CartVO> findVoByUid(Integer uid);
 
     Cart findByCid(Integer cid);
 
-    List<CareVo> findVoByCid(Integer[] cids);
+    List<CartVO> findVoByCid(Integer[] cids);
 }

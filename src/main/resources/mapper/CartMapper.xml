@@ -30,7 +30,7 @@
         SELECT * FROM t_cart WHERE uid=#{uid} AND pid=#{pid}
     </select>
 
-    <select id="findVoByUid" resultType="com.dz.springboard.vo.CareVo">
+    <select id="findVoByUid" resultType="com.dz.springboard.vo.CartVO">
         SELECT cid, uid, pid,
                t_cart.price,t_cart.num,
                t_product.title,t_product.image,t_product.price AS realprice
@@ -43,7 +43,7 @@
         SELECT * FROM t_cart WHERE cid=#{cid}
     </select>
 
-    <select id="findVoByCid" resultType="com.dz.springboard.vo.CareVo">
+    <select id="findVoByCid" resultType="com.dz.springboard.vo.CartVO">
         SELECT cid, uid, pid,
                t_cart.price,t_cart.num,
                t_product.title,t_product.image,t_product.price AS realprice

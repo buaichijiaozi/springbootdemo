@@ -123,6 +123,18 @@ public class AddressServiceImpl implements IAddressService {
 
     }
 
+    @Override
+    public Address getByAid(Integer aid, Integer uid) {
+        Address address = addressMapper.findByAid(aid);
+        if (address == null){
+            throw new AddressNotFoundException("user not found");
+        }
+        if (address.getUid().equals(uid)){
+            throw new AccessDeniedException("AccessDeniedException");
+        }
+        return address;
+    }
+
     private static void addressSet(String username, Address address) {
         address.setCreatedUser(username);
         address.setModifiedUser(username);

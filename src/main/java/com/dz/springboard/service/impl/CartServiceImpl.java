@@ -9,7 +9,7 @@ import com.dz.springboard.service.ex.AccessDeniedException;
 import com.dz.springboard.service.ex.CartNotFoundException;
 import com.dz.springboard.service.ex.InsertException;
 import com.dz.springboard.service.ex.UpdateException;
-import com.dz.springboard.vo.CareVo;
+import com.dz.springboard.vo.CartVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -57,7 +57,7 @@ public class CartServiceImpl implements ICartService {
     }
 
     @Override
-    public List<CareVo> findVoByUid(Integer uid) {
+    public List<CartVO> findVoByUid(Integer uid) {
         return cartMapper.findVoByUid(uid);
     }
 
@@ -98,15 +98,15 @@ public class CartServiceImpl implements ICartService {
     }
 
     @Override
-    public List<CareVo> getVoByCid(Integer uid, Integer[] cids) {
-        List<CareVo> list = cartMapper.findVoByCid(cids);
-        /*Iterator<CareVo> iterator = list.iterator();
+    public List<CartVO> getVoByCid(Integer uid, Integer[] cids) {
+        List<CartVO> list = cartMapper.findVoByCid(cids);
+        Iterator<CartVO> iterator = list.iterator();
         while (iterator.hasNext()){
-            CareVo next = iterator.next();
+            CartVO next = iterator.next();
             if (!next.getUid().equals(uid)){
                 list.remove(next);
             }
-        }*/
+        }
         /*list.removeIf(next -> !next.getUid().equals(uid));*/
         return list;
     }

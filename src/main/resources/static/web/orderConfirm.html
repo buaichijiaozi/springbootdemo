@@ -253,6 +253,7 @@
 		<!--页脚结束-->
 		<script type="text/javascript">
 			$(document).ready(function() {
+				showAddressList();
 				showCartList();
 			});
 			function showCartList(){
@@ -298,6 +299,56 @@
 					}
 				})
 			}
+
+			function showAddressList(){
+				$("#address-list").empty();
+				$.ajax({
+					url: "/address",
+					type: "GET",
+					data: location.search.substr(1),
+					dataType: "JSON",
+					success: function(json) {
+						let list = json.data;
+						console.log("count=" + list.length);
+						for (let i = 0; i < list.length; i++) {
+							console.log(list[i].name);
+							let opt = '<option value="#{aid}">#{name} | #{tag} | #{province}#{city}#{area}#{address} | #{phone}</option>';
+
+							opt = opt.replace(/#{aid}/g, list[i].aid);
+							opt = opt.replace(/#{tag}/g, list[i].tag);
+							opt = opt.replace("#{name}", list[i].name);
+							opt = opt.replace("#{province}", list[i].provinceName);
+							opt = opt.replace("#{city}", list[i].cityName);
+							opt = opt.replace("#{area}", list[i].areaName);
+							opt = opt.replace("#{address}", list[i].address);
+							opt = opt.replace("#{phone}", list[i].phone);
+
+							$("#address-list").append(opt);
+						}
+					}
+				});
+			}
+			$("#btn-create-order").click(function() {
+				let aid = $("#address-list").val();
+				let cids = location.search.substr(1);
+				$.ajax({
+					url: "/orders/create",
+					type: "GET",
+					data: "aid="+aid+"&"+cids,
+					dataType: "JSON",
+					success: function(json) {
+						if (json.state == 200) {
+							location.href="payment.html";
+							console.log("创建订单成功");
+						} else {
+							alert("创建订单失败！" + json.message);
+						}
+					},
+					error: function(xhr) {
+						alert("您的登录信息已经过期，请重新登录！HTTP响应码：" + xhr.status);
+					}
+				});
+			});
 		</script>
 	</body>
 

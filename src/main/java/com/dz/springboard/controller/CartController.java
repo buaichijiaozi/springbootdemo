@@ -1,9 +1,8 @@
 package com.dz.springboard.controller;
 
-import com.dz.springboard.entity.Cart;
 import com.dz.springboard.service.ICartService;
 import com.dz.springboard.util.JsonResult;
-import com.dz.springboard.vo.CareVo;
+import com.dz.springboard.vo.CartVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,9 +29,9 @@ public class CartController extends BaseController {
     }
 
     @RequestMapping({"","/"})
-    public JsonResult<List<CareVo>> getVoByUid(HttpSession session){
+    public JsonResult<List<CartVO>> getVoByUid(HttpSession session){
         Integer uid = getuidFromSession(session);
-        List<CareVo> list = cartService.findVoByUid(uid);
+        List<CartVO> list = cartService.findVoByUid(uid);
         return new JsonResult<>(OK,"OK",list);
     }
 
@@ -53,9 +52,12 @@ public class CartController extends BaseController {
     }
 
     @RequestMapping("list")
-    public JsonResult<List<CareVo>> getVoByCid(Integer[] cids, HttpSession session){
+    public JsonResult<List<CartVO>> getVoByCid(Integer[] cids, HttpSession session){
         Integer uid = getuidFromSession(session);
-        List<CareVo> list = cartService.getVoByCid(uid,cids);
+        List<CartVO> list = cartService.getVoByCid(uid,cids);
         return new JsonResult<>(OK,"OK",list);
     }
+
+    //@RequestMapping("create")
+
 }
